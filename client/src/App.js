@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
-import Header from "./components/Header"
+// import Header from "./components/Header"
+import CustomCard from './components/CustomCard';
+import FloatingButton from './components/FloatingButton';
+import FixedNavBar from './components/FixedNavBar';
 
 export default class App extends Component {
   render() {
     return (
+      <div>
+         
+        <FixedNavBar />
    
-        <Header />
+        <CustomCard />
+        <FloatingButton />
+        </div>
     
     )
   }

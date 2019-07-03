@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import { Button } from "react-bootstrap"
+
 
 function Header() {
   return (
@@ -22,7 +22,7 @@ function Header() {
     <div>
       <hr />
     </div>
-    <Button className="app-fab--absolute btn btn-primary">Add question</Button>
+  
     </div>
      
   );
