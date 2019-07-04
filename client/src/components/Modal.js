@@ -11,7 +11,7 @@ export default class CreateThreadModel extends React.Component {
 
       this.validator = new FormValidator([
         { 
-          field: 'title', 
+          field: 'question', 
           method: 'isEmpty', 
           validWhen: false, 
           message: 'Title is required.' 
@@ -29,13 +29,9 @@ export default class CreateThreadModel extends React.Component {
   
       this.state = {
         show: false,
-        title: '',
-        description: '',
-        tags: [],
+        question: '',
         answers: [],
         validation: this.validator.valid(),
-        email: localStorage.getItem('email'),
-        userId: localStorage.getItem('userId'),
         message: ''
       };
     }
@@ -48,17 +44,13 @@ export default class CreateThreadModel extends React.Component {
       this.setState({ show: true });
     }
 
-    onChangeTitle = event => {
+    onChangeQuestion = event => {
       this.setState({
-         title : event.target.value,
+        question : event.target.value,
       });
     }
 
-    onChangeDescription = event => {
-      this.setState({
-         description : event.target.value,
-      });
-    }
+
     onChangeAnswer = (e, index) => {
         this.state.answers[index] = e.target.value
         
@@ -93,7 +85,7 @@ export default class CreateThreadModel extends React.Component {
       e.preventDefault()
       const validation = this.validator.validate(this.state);
       this.setState({ validation });
-
+    
       if(this.state.answers.length <= 1){
        this.setState({message: 'Min 2 answers are required.'})
       } else {
@@ -101,16 +93,13 @@ export default class CreateThreadModel extends React.Component {
      
       this.submitted = true;
 
-      const data = { title: this.state.title,
-        description: this.state.description, 
-        tags: this.state.tags, 
-        email: this.state.email, 
-        userId: this.state.userId  }
+      const data = { question: this.state.question,
+        answers: this.state.answers }
 
 
-        if (validation.isValid) {
+     if (validation.isValid) {
       e.preventDefault()
-      fetch('https://threads', {
+      fetch('http://localhost:8080/question', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -130,9 +119,8 @@ export default class CreateThreadModel extends React.Component {
     }) 
 
         this.setState({
-          title: '',
-          description: '',
-          tags: [],
+          question: '',
+          answers: [],
     });
     this.handleClose()
     window.location.reload();
@@ -158,11 +146,11 @@ export default class CreateThreadModel extends React.Component {
             <label className="form-label m-2" for="inputDefault">Question</label>
             <input  type="text"
                                 className="form-control"
-                                value={this.state.title}
-                                onChange={this.onChangeTitle}
+                                value={this.state.question}
+                                onChange={this.onChangeQuestion}
                                 placeholder="Enter question"
                                 />
-                                 <span className="help-block  text-danger">{validation.title.message}</span>
+                                 <span className="help-block  text-danger">{validation.question.message}</span>
 
 
             <label className="form-label m-2" for="inputDefault">Answers</label>
