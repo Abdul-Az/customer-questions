@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button } from "react-bootstrap"
+import EditModal from './EditModal';
 
 export default class CustomCard extends Component {
   state = {
@@ -49,7 +50,7 @@ export default class CustomCard extends Component {
   <Card.Body>
     <Card.Title style={{maxWidth: '50rem'}}>{question.question}</Card.Title>
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-    <Button onClick={this.edit} >Edit</Button>
+    <EditModal question={question.question} answers={question.answers}/>
     </div>
     <Card.Text style={{maxWidth: '50rem'}} >
 
