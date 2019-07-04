@@ -112,14 +112,18 @@ export default class EditModal extends React.Component {
       } 
       res.json().then(resData => {
       console.log(resData);
+
     })
+    this.handleClose();
+    this.props.onClose();
     })
     .catch(err => {
       console.log(err)
     }) 
+    
+    
 
-    this.handleClose()
-    window.location.reload();
+    
       }
     }
     }

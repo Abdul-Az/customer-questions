@@ -42,6 +42,34 @@ export default class CustomCard extends Component {
   edit = (e) => {
     console.log(e)
   }
+
+  refresh = () => {
+    fetch('http://localhost:8080/questions', {
+      method: 'GET',
+      body: null,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(response => {
+      if (response.status !== 200) {
+        console.log(
+          `Looks like there was a problem. Status Code: ${response.status}`
+        );
+      } else {
+        response.json().then(data => {
+          if (data.error) {
+            this.setState({ error: data.message });
+          }
+  
+          console.log(data);
+          this.setState({ data: data }, () => {
+            console.log("State set")
+          });
+        });
+      }
+     
+    });
+  }
     render() {
         return (
           <div style={{marginTop: '10rem'}}>
@@ -50,7 +78,7 @@ export default class CustomCard extends Component {
   <Card.Body>
     <Card.Title style={{maxWidth: '50rem'}}>{question.question}</Card.Title>
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-    <EditModal question={question.question} answers={question.answers} id={question._id}/>
+    <EditModal question={question.question} answers={question.answers} id={question._id} onClose={() => this.refresh()} />
     </div>
     <Card.Text style={{maxWidth: '50rem'}} >
 
