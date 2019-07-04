@@ -17,16 +17,10 @@ export default class CreateThreadModel extends React.Component {
           message: 'Title is required.' 
         },
         { 
-          field: 'description',
+          field: 'answers', 
           method: 'isEmpty', 
           validWhen: false, 
-          message: 'Description is required'
-        },
-        { 
-          field: 'tags', 
-          method: 'isEmpty', 
-          validWhen: false, 
-          message: 'Min 2 answers are required.'
+          message: 'Add answer.'
         }
       ]);
   
@@ -41,7 +35,8 @@ export default class CreateThreadModel extends React.Component {
         answers: [],
         validation: this.validator.valid(),
         email: localStorage.getItem('email'),
-        userId: localStorage.getItem('userId')
+        userId: localStorage.getItem('userId'),
+        message: ''
       };
     }
   
@@ -72,13 +67,19 @@ export default class CreateThreadModel extends React.Component {
       });
     }
 
-    addAnsewr = e => {
+    addAnsewr = (e) => {
         e.preventDefault()
+        if(this.state.answers.length < 5){
        this.setState({
           answers: [...this.state.answers, ''] 
        })
+    } else {
+       this.setState({
+           message: 'Max. 5 answers are allowed, '
+       })
     }
-
+    }
+    
     handelRemove = (e,index) => {
         e.preventDefault()
       this.state.answers.splice(index, 1)
@@ -92,6 +93,12 @@ export default class CreateThreadModel extends React.Component {
       e.preventDefault()
       const validation = this.validator.validate(this.state);
       this.setState({ validation });
+
+      if(this.state.answers.length <= 1){
+       this.setState({message: 'Min 2 answers are required.'})
+      } else {
+         
+     
       this.submitted = true;
 
       const data = { title: this.state.title,
@@ -103,7 +110,7 @@ export default class CreateThreadModel extends React.Component {
 
         if (validation.isValid) {
       e.preventDefault()
-      fetch('https://dcoder-server.herokuapp.com/threads', {
+      fetch('https://threads', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -131,6 +138,7 @@ export default class CreateThreadModel extends React.Component {
     window.location.reload();
       }
     }
+    }
     render() {
 
         let validation = this.submitted ?                         // if the form has been submitted at least once
@@ -152,7 +160,7 @@ export default class CreateThreadModel extends React.Component {
                                 className="form-control"
                                 value={this.state.title}
                                 onChange={this.onChangeTitle}
-                                placeholder="Enter Title"
+                                placeholder="Enter question"
                                 />
                                  <span className="help-block  text-danger">{validation.title.message}</span>
 
@@ -173,8 +181,8 @@ export default class CreateThreadModel extends React.Component {
                                 className="btn btn-link" style={{color: 'red'}}>Remove</button>
                                 </div>
                             )
-                        })}       
-                                 <span className="help-block  text-danger">{validation.tags.message}</span>
+                        })}      <span className="help-block  text-danger">{this.state.message}</span>
+                                 <span className="help-block  text-danger">{validation.answers.message}</span>
                                  <button type="submit" onClick={(e) => this.addAnsewr(e)} className="btn btn-primary m-2">Add new answer</button>
             <Modal.Footer>
             <button type="submit" onClick={this.onSubmit} class="btn btn-primary">Save changes</button>
