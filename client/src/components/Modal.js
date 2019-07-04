@@ -26,7 +26,7 @@ export default class CreateThreadModel extends React.Component {
           field: 'tags', 
           method: 'isEmpty', 
           validWhen: false, 
-          message: 'Tag is required.'
+          message: 'Min 2 answers are required.'
         }
       ]);
   
