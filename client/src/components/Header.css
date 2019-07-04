@@ -1,47 +1,4 @@
-.questions-header {
-    font-size: calc(2px + 2vmin);
-    color: #282c34;
-    margin-bottom: 0;
-    display: flex;
-    padding-left: 2rem;
-   
-   
-  }
-  
-  .text {
-   padding-right: 40%;
 
-  }
-
-  
-  
-  .App {
-   /* position: fixed; */
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0
-    
-  }
-  
-  
-  .App-header {
-  
-    font-size: calc(10px + 2vmin);
-    color: #282c34;
-    margin-bottom: 0;
-    padding-left: 2rem;
-   
-  }
-  
-  .App-text {
-  
-    color: #aab9ce;
-    font-size:  calc(1px + 2vmin);
-    margin-top: 0;
-    padding-left: 2rem
-  }
-  
   
   .app-fab--absolute {
     position: fixed;
@@ -54,13 +11,4 @@
       bottom: 2rem;
       left: 2rem;
     }
-  }
-
-  .navbar {
-    height: 100px;
-    padding: 0 15px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 1;
   }
