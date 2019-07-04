@@ -29,8 +29,8 @@ export default class EditModal extends React.Component {
   
       this.state = {
         show: false,
-        question: '',
-        answers: [],
+        question: this.props.question,
+        answers: this.props.answers,
         validation: this.validator.valid(),
         message: ''
       };
@@ -93,18 +93,18 @@ export default class EditModal extends React.Component {
      
       this.submitted = true;
 
-      const data = { question: this.state.question,
+      const data = { id: this.props.id,
+          question: this.state.question,
         answers: this.state.answers }
 
 
      if (validation.isValid) {
       e.preventDefault()
       fetch('http://localhost:8080/question', {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
-        'authorization': localStorage.getItem('token')
+        'Content-Type': 'application/json'
       }
     }).then(res => {
       if(res.status !== 200 && res.status !== 201){
@@ -118,10 +118,6 @@ export default class EditModal extends React.Component {
       console.log(err)
     }) 
 
-        this.setState({
-          question: '',
-          answers: [],
-    });
     this.handleClose()
     window.location.reload();
       }
@@ -146,7 +142,7 @@ export default class EditModal extends React.Component {
             <label className="form-label m-2" for="inputDefault">Question</label>
             <input  type="text"
                                 className="form-control"
-                                value={this.props.question}
+                                value={this.state.question}
                                 onChange={this.onChangeQuestion}
                                 placeholder="Enter question"
                                 />
@@ -155,7 +151,7 @@ export default class EditModal extends React.Component {
 
             <label className="form-label m-2" for="inputDefault">Answers</label>
            
-                        {this.props.answers.map((answer, index) => {
+                        {this.state.answers.map((answer, index) => {
                             return (
                                 <div  key={index} style={{display: 'flex'}}>
                                 <input  type="text"

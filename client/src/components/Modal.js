@@ -103,8 +103,7 @@ export default class CreateThreadModel extends React.Component {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
-        'authorization': localStorage.getItem('token')
+        'Content-Type': 'application/json'
       }
     }).then(res => {
       if(res.status !== 200 && res.status !== 201){

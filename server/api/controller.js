@@ -28,7 +28,34 @@ app.post('/question', (req,res, next) => {
       res.json(error);
     });
   });
+
+  //Edit question
   
+  app.put("/question",   (req, res) => {
+  
+    Questions.findOne({ _id: req.body.id }, (error, doc) =>{
+        if(error){
+            res.send(error)
+        } else {
+            if(req.body.question){
+               doc.question = req.body.question;
+            }
+            if(req.body.answers){
+                doc.answers = req.body.answers
+            }
+        }
+  
+       doc.save(function(err, updateObject){
+           if(err){
+             return  res.send(err)
+           } else {
+            return   res.send(updateObject)
+           }
+       });
+   })
+  
+  
+  })
 
   
 

@@ -50,7 +50,7 @@ export default class CustomCard extends Component {
   <Card.Body>
     <Card.Title style={{maxWidth: '50rem'}}>{question.question}</Card.Title>
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-    <EditModal question={question.question} answers={question.answers}/>
+    <EditModal question={question.question} answers={question.answers} id={question._id}/>
     </div>
     <Card.Text style={{maxWidth: '50rem'}} >
 
